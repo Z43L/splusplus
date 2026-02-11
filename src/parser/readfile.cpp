@@ -29,25 +29,12 @@ void Parser::addError(const std::string &error)
     errors.push_back(error);
 }
 
-void Parser::parseExpression(std::vector<Token> &tokens)
+void TokenType::parseStatement(Token token)
 {
-    if (tokens.empty())
-    {
-        addError("No tokens to parse.");
-        return;
-    }
-    while(tokens[position].getType() != TokenType::EndOfFile)
-    {
-        parseStatement(tokens[position]);
-    }
-}
-
-void Parser::parseStatement(Token token)
-{
-    if (token.getType() == TokenType::Keyword)
+    if ( TokenType::NodeType::Statement == token.)
     {
         if(token.getValue() == "if")
-        {
+        {b
             // Handle if statements
         }
         else if(token.getValue() == "while")
@@ -99,8 +86,19 @@ void Parser::parseStatement(Token token)
         addError("Unexpected token: " + token.getValue());
     }
 }
-
+void Parser::parseExpression(std::vector<Token> &tokens)
+{
+    if (tokens.empty())
+    { 
+        addError("No tokens to parse.");
+        return;
+    }
+    while(tokens[position].getType() != TokenType::EndOfFile)
+    {
+        parseStatement(tokens[position]);
+    }
+}  
 void Parser::parse()
 {
-    // Implement the parsing logic here
+    parseExpression(tokens);
 }
