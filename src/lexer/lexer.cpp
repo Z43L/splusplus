@@ -39,18 +39,17 @@ Token Lexer::readIdentifier()
 
     std::string value = input.substr(start, position - start);
     static const std::unordered_map<std::string, TokenType> keywords = {
-        {"if", TokenType::Keyword},
-        {"else", TokenType::Keyword},
-        {"while", TokenType::Keyword},
-        {"for", TokenType::Keyword},
-        {"return", TokenType::Keyword}};
-
+        {"if", TokenType::Type::Keyword},
+        {"else", TokenType::Type::Keyword},
+        {"while", TokenType::Type::Keyword},
+        {"for", TokenType::Type::Keyword},
+        {"return", TokenType::Type::Keyword}};
     auto it = keywords.find(value);
     if (it != keywords.end())
     {
         return Token(it->second, value);
     }
-    return Token(TokenType::Identifier, value);
+    return Token(TokenType::Type::Identifier, value);
 }
 
 Token Lexer::readNumber()
@@ -61,7 +60,7 @@ Token Lexer::readNumber()
         readChar();
     }
     std::string value = input.substr(start, position - start);
-    return Token(TokenType::Number, value);
+    return Token(TokenType::Type::Number, value);
 }
 
 Token Lexer::readString()
@@ -77,7 +76,7 @@ Token Lexer::readString()
     {
         readChar();
     }
-    return Token(TokenType::String, value);
+    return Token(TokenType::Type::String, value);
 }
 
 Token Lexer::nextToken()
@@ -91,7 +90,7 @@ Token Lexer::nextToken()
 
     if (is_end_of_file || current_char == 0)
     {
-        return Token(TokenType::EndOfFile, "");
+        return Token(TokenType::Type::EndOfFile, "");
     }
 
     if (isLetter(current_char))
@@ -119,15 +118,15 @@ Token Lexer::nextToken()
     case '*':
     case '/':
     case '=':
-        return Token(TokenType::Operator, std::string(1, ch));
+        return Token(TokenType::Type::Operator, std::string(1, ch));
     case ';':
     case ',':
     case '(':
     case ')':
     case '{':
     case '}':
-        return Token(TokenType::Punctuation, std::string(1, ch));
+        return Token(TokenType::Type::Punctuation, std::string(1, ch));
     default:
-        return Token(TokenType::EndOfFile, "");
+        return Token(TokenType::Type::EndOfFile, "");
     }
 }
