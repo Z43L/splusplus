@@ -19,6 +19,7 @@ class Parser
         std::string input;
         TokenType type;
         std::unordered_map<std::string, std::unordered_map<std::string, TokenType::NodeContent>> compiler_maps;
+    
         
     public:
         Parser(const std::vector<Token>& tokens, int position, const std::string& input, Lexer  lexer) 
@@ -41,6 +42,10 @@ class Parser
         const std::unordered_map<std::string, std::unordered_map<std::string, TokenType::NodeContent>> &getCompilerMaps() const { return compiler_maps; }
         const std::unordered_map<std::string, TokenType::NodeContent> *getCompilerMapForFile(const std::string &filename) const;
         std::unordered_map<std::string, TokenType::NodeContent> mergeCompilerMaps();
+        std::vector<Token> getTokens() const { return tokens; }
+        size_t getPosition() const { return position; }
+
+
 };
 
 #endif

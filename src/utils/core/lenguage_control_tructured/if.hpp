@@ -24,7 +24,7 @@ class IfControl
     public:
         IfControl() {}
         ~IfControl() {}
-        void executeIf(t_IfControl ifControl);
+       
         std::vector<std::string> getErrors() const { return errors; }
         char** getCondition() const { return ifControl.condition; }
         char*** getVariables() const { return ifControl.variables; }
